@@ -53,7 +53,7 @@ function getTasks($userId)
 {
     global $pdo;
 
-    $stmt = $pdo->prepare('SELECT description FROM tasks WHERE user_id = ?');
+    $stmt = $pdo->prepare('SELECT id, description FROM tasks WHERE user_id = ?');
     $stmt->execute([$userId]);
     return $stmt->fetchAll();
 }
@@ -64,4 +64,12 @@ function addTask($userId, $description)
 
     $stmt = $pdo->prepare('INSERT INTO tasks (user_id, description) VALUES (?, ?)');
     return $stmt->execute([$userId, $description]);
+}
+
+function deleteTask($taskId)
+{
+    global $pdo;
+
+    $stmt = $pdo->prepare('DELETE FROM tasks WHERE id = ?');
+    return $stmt->execute([ $taskId]);
 }

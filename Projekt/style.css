@@ -56,12 +56,13 @@ ol {
     padding-top: 50px;
 }
 
-input[type = submit] {
+input[type = submit], button {
     background: transparent;
     font-weight: bolder;
+   
 }
 
-input[type = submit]:hover {
+input[type = submit]:hover, button:hover {
     background-color: #ffffffa1;
     font-weight: bolder;
     transition: transform 0.5s ;
@@ -71,4 +72,13 @@ input[type = submit]:hover {
 
 input[type = text]{
     background-color: #ffffffa1;
+}
+
+.delete-button {
+    display: none;
+}
+
+.task-item:hover .delete-button {
+    transition: display 0.5s ;
+    display: inline;
 }

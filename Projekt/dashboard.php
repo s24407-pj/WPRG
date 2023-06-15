@@ -40,21 +40,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script>
-        function deleteTask(id) {
-        
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                var listItem = document.getElementById('task-' + taskId);
-                if (listItem) {
-                    listItem.remove();
-                }
+    function deleteTask(id) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                // Refresh the page after successful deletion
+                location.reload();
             }
-            };
-            xmlhttp.open("GET","deletetask.php?q="+str,true);
-            xmlhttp.send();
-        
+        };
+
+        xmlhttp.open("GET", "task/deletetask.php/?id=" + id, true);
+        xmlhttp.send();
+    }
+
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('delete-button')) {
+            var taskId = event.target.getAttribute('task-id');
+            deleteTask(taskId);
         }
+    });
 </script>
 </head>
 <body>
@@ -71,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 . '">' 
                 . $task['description'] 
                 . '<button class="delete-button" task-id="' 
-                . $task['id'] . '" onclick="this.task-id">Delete</button></li>';
+                . $task['id'] . '">Delete</button></li>';
             }
             echo '</ol>';
         } else {
@@ -83,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" id="task" name="task" required>
             <input type="submit" value="Add">
         </form>
-        <p><a href="logout.php" id="logout">Logout</a></p>
+        <p><a href="user/logout.php" id="logout">Logout</a></p>
     </main>
     <footer>Michał Flisikowski</footer>
 </body>

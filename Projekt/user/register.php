@@ -1,30 +1,31 @@
 <?php
 session_start();
-require_once 'database.php';
+require_once '..\database.php';
 
 // Sprawdzenie, czy użytkownik jest już zalogowany
 if (isset($_SESSION['user_id'])) {
-    header('Location: dashboard.php');
+    header('Location: ..\database.php');
     exit;
 }
 
-// Obsługa formularza logowania
+// Obsługa formularza rejestracji
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $email = $_POST['email'];
 
-    // Walidacja danych logowania
-    if (empty($username) || empty($password)) {
+    // Walidacja danych 
+    if (empty($username) || empty($password) || empty($email)) {
         $error = 'All fields are required.';
     } else {
-        // Sprawdzenie poprawności danych logowania
-        $result = loginUser($username, $password);
+        // Zapisanie danych do bazy danych
+        $result = registerUser($username, $password, $email);
         if ($result) {
             $_SESSION['user_id'] = $result;
-            header('Location: dashboard.php');
+            header('Location: ..\dashboard.php');
             exit;
         } else {
-            $error = 'Invalid username or password.';
+            $error = 'Unexpected error.';
         }
     }
 }
@@ -33,15 +34,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Register</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="..\style.css">
 </head>
 <body>
-    <header>Login</header>
+    <header>Register</header>
     <main>
         <?php if (isset($error)) echo '<p class="error">' . $error . '</p>'; ?>
         <form method="POST" action="">
@@ -49,7 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" id="username" name="username" required><br>
             <label for="password">Password:</label><br>
             <input type="password" id="password" name="password" required><br>
-            <input type="submit" value="Login">
+            <label for="email">E-mail:</label><br>
+            <input type="email" id="email" name="email" required><br>
+            <input type="submit" value="Register">
         </form>
     </main>
     <footer>Michał Flisikowski</footer>

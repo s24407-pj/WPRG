@@ -56,7 +56,7 @@ ol {
     padding-top: 50px;
 }
 
-input[type = submit], button {
+input[type = submit],input [type = "password"], button {
     background: transparent;
     font-weight: bolder;
    

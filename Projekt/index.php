@@ -22,7 +22,7 @@ if (isset($_SESSION['user_id'])) {
     <header>Simple app for simple tasks.</header>
     <main>
         <p>Hi! Login or register account.</p>
-        <a href="login.php">Login</a> | <a href="register.php">Register</a>
+        <a href="user/login.php">Login</a> | <a href="user/register.php">Register</a>
     </main>
     
     <footer>Michał Flisikowski</footer>

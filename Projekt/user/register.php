@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" type="text/css" href="..\style.css">
 </head>
 <body>
-    <header>Register</header>
+    <header>Welcome!</header>
     <main>
         <?php if (isset($error)) echo '<p class="error">' . $error . '</p>'; ?>
         <form method="POST" action="">

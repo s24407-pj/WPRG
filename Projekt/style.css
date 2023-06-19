@@ -79,6 +79,7 @@ input[type = text]{
 }
 
 .task-item:hover .delete-button {
-    transition: display 0.5s ;
+    
     display: inline;
+    
 }
